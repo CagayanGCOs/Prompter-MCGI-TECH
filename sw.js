@@ -1,7 +1,9 @@
-const CACHE = 'prompter-deck-v1';
+const CACHE = 'prompter-deck-v2';
 const ASSETS = [
   './',
   './index.html',
+  './style.css',
+  './script.js',
   './manifest.json',
   './icon-192.png',
   './icon-512.png'
