@@ -1,4 +1,4 @@
-const CACHE = 'prompter-deck-v2';
+const CACHE = 'prompter-deck-v3';
 const ASSETS = [
   './',
   './index.html',
