@@ -152,4 +152,16 @@
 
   ::-webkit-scrollbar{ width:8px; }
   ::-webkit-scrollbar-thumb{ background:#2a2620; border-radius:4px; }
-</style>
+
+  /* ---- Fullscreen presenter mode ---- */
+  body.fs-mode .rack{ display:none; }
+  body.fs-mode .stage{ width:100vw; }
+  body.fs-mode .monitor{ border:none; border-radius:0; box-shadow:none; }
+  body.fs-mode .scrubwrap{ opacity:.35; }
+  .fs-exit-hint{
+    position:fixed; top:14px; right:18px;
+    font-size:10px; letter-spacing:.1em; text-transform:uppercase;
+    color:var(--text-dim); background:#0b0d0cbb; border:1px solid var(--line);
+    padding:4px 10px; border-radius:20px; display:none; pointer-events:none;
+  }
+  body.fs-mode .fs-exit-hint{ display:block; }

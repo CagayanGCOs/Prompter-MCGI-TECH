@@ -24,8 +24,9 @@
   function fitCanvasToScreen(){
     canvas.width = state.canvasW;
     canvas.height = state.canvasH;
-    const maxW = window.innerWidth - 340;
-    const maxH = window.innerHeight - 90;
+    const fsMode = document.body.classList.contains('fs-mode');
+    const maxW = window.innerWidth - (fsMode ? 24 : 340);
+    const maxH = window.innerHeight - (fsMode ? 24 : 90);
     const scale = Math.min(maxW / state.canvasW, maxH / state.canvasH, 1);
     canvas.style.width = (state.canvasW * scale) + 'px';
     canvas.style.height = (state.canvasH * scale) + 'px';
@@ -218,12 +219,44 @@
     resetScroll();
   });
 
+  // ---------- Fullscreen presenter mode ----------
+  const fsBtn = document.getElementById('fsBtn');
+
+  function enterFsMode(){
+    document.body.classList.add('fs-mode');
+    fsBtn.textContent = '⤢ Exit fullscreen';
+    fitCanvasToScreen();
+  }
+  function exitFsMode(){
+    document.body.classList.remove('fs-mode');
+    fsBtn.textContent = '⛶ Fullscreen';
+    fitCanvasToScreen();
+  }
+
+  fsBtn.addEventListener('click', ()=>{
+    if(!document.fullscreenElement){
+      document.documentElement.requestFullscreen().catch(()=>{
+        // Fullscreen API blocked (e.g. iframe) — fall back to CSS-only presenter mode
+        enterFsMode();
+      });
+    } else {
+      document.exitFullscreen();
+    }
+  });
+
+  document.addEventListener('fullscreenchange', ()=>{
+    if(document.fullscreenElement){ enterFsMode(); } else { exitFsMode(); }
+  });
+
   window.addEventListener('keydown', (e)=>{
     if(e.code === 'Space'){
       const tag = document.activeElement.tagName;
       if(tag === 'TEXTAREA' || tag === 'INPUT') return;
       e.preventDefault();
       setPlaying(!state.playing);
+    }
+    if(e.code === 'Escape' && document.body.classList.contains('fs-mode') && !document.fullscreenElement){
+      exitFsMode(); // covers the CSS-only fallback path
     }
   });
 

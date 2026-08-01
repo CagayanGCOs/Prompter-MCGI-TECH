@@ -75,6 +75,9 @@
         <button class="btn primary" id="playBtn">▶ Play</button>
         <button class="btn" id="replayBtn">⟲ Replay</button>
       </div>
+      <div class="transport">
+        <button class="btn" id="fsBtn">⛶ Fullscreen</button>
+      </div>
       <select id="recFps">
         <option value="24">24 fps — smoother on slow devices</option>
         <option value="30" selected>30 fps — standard</option>
@@ -91,6 +94,7 @@
   </div>
 
   <div class="stage">
+    <div class="fs-exit-hint">Esc para lumabas</div>
     <div class="monitor" id="monitor">
       <canvas id="stageCanvas"></canvas>
     </div>
